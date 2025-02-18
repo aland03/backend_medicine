@@ -101,5 +101,33 @@ class PatientModel {
       }
     });
   }
+
+  async getAllPatient() {
+    return await knex(tableName);
+  }
+
+  async getByIdPatient(patientId) {
+    return knex(tableName).where("patient_id", patientId);
+  }
+
+  async detelePatient(patientId) {
+    if (
+      (await knex(tableName).where("patient_id", patientId)).map(
+        (data) => data.patient_status
+      ) == "deactive"
+    ) {
+      return "!!ئەم نەخۆشە نەدۆزرایەوە";
+    }
+    const data = await knex(tableName).where("patient_id", patientId).update({
+      patient_status: "deactive",
+    });
+    return await knex(tableName).where("patient_id", patientId);
+  }
+  async updatePatient(patientId, body) {
+    const date = Date.now();
+    body.patient_updated_at = date;
+    await knex(tableName).where("patient_id", patientId).update(body);
+    return await this.getById(patientId);
+  }
 }
 module.exports = new PatientModel();

@@ -12,7 +12,7 @@ class AdminModel {
         if ((await knex(tableName).where('admin_id', adminId)).map(data => data.admin_status) == 'active') {
             return knex(tableName).where('admin_id', adminId)
         } else {
-            return 'ئەم ئەدمینە نەدۆزرایەوە'
+            return '!!ئەم ئەدمینە نەدۆزرایەوە'
         }
     }
 

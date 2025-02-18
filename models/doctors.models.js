@@ -118,7 +118,7 @@ class DoctorsModels {
         (data) => data.doctors_status
       ) == "deactive"
     ) {
-      return "ئەم دکتۆرە نەدۆزرایەوە";
+      return "!!ئەم دکتۆرە نەدۆزرایەوە";
     }
     const data = await knex(tableName).where("doctors_id", doctorsId).update({
       doctors_status: "deactive",
