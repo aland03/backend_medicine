@@ -45,7 +45,7 @@ class Auth {
       return { success: true, message: "کۆدی دڵنیایی نێردرا" };
     } catch (error) {
       console.error("Error sending SMS:", error.message);
-      return { success: false, message: "ناردنی کۆدی دڵنیایی سەرکەوتوو نەبوو" };
+      throw { success: false, message: "ناردنی کۆدی دڵنیایی سەرکەوتوو نەبوو" };
     }
   }
 
@@ -69,7 +69,7 @@ class Auth {
       return { success: true, message: "کۆدی دڵنیایی بەسەرکەوتوی ئەنجامدرا" };
     } catch (error) {
       console.error("Error verifying OTP:", error.message);
-      return { success: false, message: "کێشەیەک هەیە" };
+      throw { success: false, message: "کێشەیەک هەیە" };
     }
   }
 }

@@ -3,7 +3,7 @@ const joi = require("joi");
 class PatientValidation {
   addPatient(body) {
     const schema = joi.object({
-      patient_username: joi.string().required(),
+      // patient_username: joi.string().required(),
       patient_password: joi.string().min(8).required(),
       patient_fname: joi.string().required(),
       patient_mname: joi.string().required(),
@@ -13,8 +13,8 @@ class PatientValidation {
       patient_age: joi.string().required(),
       patient_blood_type: joi.string().required(),
       patient_weight: joi.string().required(),
-      patient_height: joi.string().required(),
-      patient_address: joi.number().required(),
+      // patient_height: joi.string().required(),
+      patient_address: joi.string().required(),
       patient_gender: joi.string().valid("male", "female").required(),
       opt_code: joi.string().length(6).optional(),
     });
@@ -31,3 +31,6 @@ class PatientValidation {
 }
 
 module.exports = new PatientValidation();
+
+
+// patient user name lagal heights labda 
