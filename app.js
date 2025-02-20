@@ -18,6 +18,9 @@ app.use('/doctors', doctors)
 // const doctorsNotification = require('./routers/doctors_notification.router')
 // app.use('/doctors_notification', doctorsNotification)
 
+const doctorSchedule = require('./routers/doctor_schedule.router')
+app.use('/doctor_schedule', doctorSchedule)
+
 const feedback = require('./routers/feedback.router')
 app.use('/feedback', feedback)
 
@@ -25,7 +28,7 @@ const medicine = require('./routers/favorites.router')
 app.use('/medicine', medicine)
 
 const favorites = require('./routers/favorites.router')
-app.use('/favorites', favorites) 
+app.use('/favorites', favorites)
 
 const patient = require('./routers/patient.router')
 app.use('/patient', patient)
