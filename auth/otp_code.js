@@ -12,6 +12,8 @@ class Auth {
     ).join("");
 
     try {
+      let modifiedNumber = phoneNumber.substring(1); // Removes the first character
+
       const response = await fetch("https://api.otpiq.com/api/sms", {
         method: "POST",
         headers: {
@@ -19,7 +21,7 @@ class Auth {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          phoneNumber: "964" + phoneNumber,
+          phoneNumber: "964" + modifiedNumber,
           smsType: "verification",
           provider: "auto",
           verificationCode: verificationCode,
@@ -68,8 +70,8 @@ class Auth {
       await redisClient.del(`otp:${phoneNumber}`);
       return { success: true, message: "کۆدی دڵنیایی بەسەرکەوتوی ئەنجامدرا" };
     } catch (error) {
-      console.error("Error verifying OTP:", error.message);
-      throw { success: false, message: "کێشەیەک هەیە" };
+      console.error("Error verifying OTP class:", error.message);
+      return { success: false, message: "کێشەیەک هەیە" };
     }
   }
 }

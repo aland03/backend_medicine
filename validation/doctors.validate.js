@@ -9,7 +9,7 @@ class DoctorsValidation {
       doctors_mname: joi.string().required(),
       doctors_lname: joi.string().required(),
       doctors_email: joi.string().required(),
-      doctors_phone: joi.string().length(10).required(),
+      doctors_phone: joi.string().length(11).required(),
       doctors_address: joi.string().required(),
       doctors_id_of_ministry: joi.number().required(),
       doctors_cv: joi.string().required(),
@@ -23,7 +23,7 @@ class DoctorsValidation {
   loginDoctor(body) {
     const schema = joi.object({
       password: joi.string().required(),
-      doctors_phone: joi.string().length(10).required(),
+      doctors_phone: joi.string().length(11).required(),
       opt_code: joi.string().optional().length(6),
     });
     return schema.validate(body);

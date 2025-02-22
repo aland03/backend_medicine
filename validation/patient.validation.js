@@ -9,7 +9,7 @@ class PatientValidation {
       patient_mname: joi.string().required(),
       patient_lname: joi.string().required(),
       // ema sfrakay yakam warnagrin
-      patient_phone: joi.string().length(10).required(),
+      patient_phone: joi.string().length(11).required(),
       patient_age: joi.string().required(),
       patient_blood_type: joi.string().required(),
       patient_weight: joi.string().required(),
@@ -23,7 +23,7 @@ class PatientValidation {
   loginPatient(body) {
     const schema = joi.object({
       password: joi.string().required(),
-      patient_phone: joi.string().length(10).required(),
+      patient_phone: joi.string().length(11).required(),
       opt_code: joi.string().optional().length(6),
     });
     return schema.validate(body);
@@ -32,5 +32,4 @@ class PatientValidation {
 
 module.exports = new PatientValidation();
 
-
-// patient user name lagal heights labda 
+// patient user name lagal heights labda
