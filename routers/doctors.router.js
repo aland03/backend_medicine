@@ -15,4 +15,6 @@ app.put("/update/:doctors_id", controller.updateDoctors());
 
 app.delete("/delete/:doctors_id", controller.deleteDoctors());
 
+app.get("/doctors/:speciality_id", controller.getDoctorsBySpeciality());
+
 module.exports = app;

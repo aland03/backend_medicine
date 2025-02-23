@@ -131,6 +131,19 @@ class DoctorsModels {
     await knex(tableName).where("doctors_id", doctorsId).update(body);
     return await this.getById(doctorsId);
   }
+
+  async getDoctorsBySpeciality(speciality_id) {
+    try {
+      const doctors = await knex("doctors")
+        .where("speciality_id", speciality_id)
+        .select("*");
+
+      return doctors;
+    } catch (error) {
+      console.error("Error fetching doctors by speciality:", error);
+      throw error;
+    }
+  }
 }
 
 module.exports = new DoctorsModels();

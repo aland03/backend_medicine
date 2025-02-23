@@ -147,6 +147,25 @@ class DoctorsController {
     };
   };
 
+  getDoctorsBySpeciality() {
+    return (req, res) => {
+      const { speciality_id } = req.params;
+
+      if (!speciality_id) {
+        return res.status(400).send("speciality_id is required");
+      }
+
+      doctorModel
+        .getDoctorsBySpeciality(speciality_id)
+        .then((doctors) => {
+          return res.status(200).json(doctors);
+        })
+        .catch((error) => {
+          return res.status(500).send("Error fetching doctors");
+        });
+    };
+  }
+
   getByIdDoctors = () => {
     return (req, res) => {
       const doctorsId = req.params.doctors_id;

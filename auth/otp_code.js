@@ -13,34 +13,42 @@ class Auth {
 
     try {
       let modifiedNumber = phoneNumber.substring(1); // Removes the first character
+      //
+      //!uncomment this for working actual codes
+      // const response = await fetch("https://api.otpiq.com/api/sms", {
+      //   method: "POST",
+      //   headers: {
+      //     Authorization: `Bearer ${process.env.SMS_API_KEY}`,
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     phoneNumber: "964" + modifiedNumber,
+      //     smsType: "verification",
+      //     provider: "auto",
+      //     verificationCode: verificationCode,
+      //   }),
+      // });
 
-      const response = await fetch("https://api.otpiq.com/api/sms", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.SMS_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phoneNumber: "964" + modifiedNumber,
-          smsType: "verification",
-          provider: "auto",
-          verificationCode: verificationCode,
-        }),
-      });
+      // if (!response.ok) {
+      //   console.log(response.status);
 
-      if (!response.ok) {
-        console.log(response.status);
+      //   throw new Error("ناردنی کۆدی دڵنیایی سەرکەوتوو نەبوو");
+      // }
 
-        throw new Error("ناردنی کۆدی دڵنیایی سەرکەوتوو نەبوو");
-      }
+      // const data = await response.json();
+      // console.log("SMS sent:", data);
 
-      const data = await response.json();
-      console.log("SMS sent:", data);
+      // await redisClient.setEx(
+      //   `otp:${phoneNumber}`,
+      //   process.env.OPT_CODE_EXPIRE_TIME,
+      //   verificationCode
+      // );
 
+      //!test using
       await redisClient.setEx(
         `otp:${phoneNumber}`,
         process.env.OPT_CODE_EXPIRE_TIME,
-        verificationCode
+        "111111"
       );
       console.log(`OTP saved in Redis for ${phoneNumber}: ${verificationCode}`);
 
