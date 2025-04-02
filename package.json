@@ -1,0 +1,32 @@
+{
+  "name": "medical",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+<<<<<<< HEAD
+    "express-validator": "^7.2.1",
+=======
+>>>>>>> b09cf328706a8789737302d2a9717dfa23ae708f
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "mysql2": "^3.12.0",
+    "nodemon": "^3.1.9",
+<<<<<<< HEAD
+    "punycode": "^2.3.1",
+=======
+>>>>>>> b09cf328706a8789737302d2a9717dfa23ae708f
+    "redis": "^4.7.0"
+  }
+}
