@@ -39,7 +39,7 @@ const speciality = require("./routers/speciality.router");
 app.use("/speciality", speciality);
 
 const favorite = require("./routers/favorite.router");
-app.use("/fav", favorite);
+app.use("/favorites", favorite);
 
 app.listen(port, () => {
   console.log("port " + port);

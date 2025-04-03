@@ -4,10 +4,11 @@ class FavoritesController {
   // Add a favorite
   addFavorite() {
     return (req, res) => {
-      const favoriteData = req.body;
+      const doctors_id = req.params.doctors_id;
 
+      const patient_id = req.user["user"];
       favoritesModel
-        .addFavorite(favoriteData)
+        .addFavorite(patient_id, doctors_id)
         .then((data) => {
           return res.status(201).json(data);
         })
@@ -20,39 +21,18 @@ class FavoritesController {
   // Get all favorites by patient
   getFavoritesByPatient() {
     return (req, res) => {
-      const { patient_id } = req.params;
-
-      if (!patient_id) {
-        return res.status(400).send("patient_id is required");
-      }
+      const { patient_id } = req.user["user"];
 
       favoritesModel
-        .getFavoritesByPatient(patient_id)
+        .getCheckedDoctorsByPatient(patient_id)
         .then((favorites) => {
+          console.log(favorites);
           return res.status(200).json(favorites);
         })
         .catch((error) => {
-          return res.status(500).send("Error fetching favorites for patient");
-        });
-    };
-  }
+          console.log(error);
 
-  // Get all favorites by doctor
-  getFavoritesByDoctor() {
-    return (req, res) => {
-      const { doctor_id } = req.params;
-
-      if (!doctor_id) {
-        return res.status(400).send("doctor_id is required");
-      }
-
-      favoritesModel
-        .getFavoritesByDoctor(doctor_id)
-        .then((favorites) => {
-          return res.status(200).json(favorites);
-        })
-        .catch((error) => {
-          return res.status(500).send("Error fetching favorites for doctor");
+          return res.status(500).send("کێشەیەک هەیە");
         });
     };
   }

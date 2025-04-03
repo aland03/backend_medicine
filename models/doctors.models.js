@@ -108,8 +108,18 @@ class DoctorsModels {
     return await knex(tableName);
   }
 
-  async getByIdDoctors(doctorsId) {
-    return knex(tableName).where("doctors_id", doctorsId);
+  async getByIdDoctors(doctorsId, patient_id) {
+    return knex(tableName)
+      .join("speciality", "speciality.speciality_id", "doctors.speciality_id")
+      .leftJoin("favorites", function () {
+        this.on("favorites.doctors_id", "=", "doctors.doctors_id").andOn(
+          "favorites.patient_id",
+          "=",
+          knex.raw("?", [patient_id])
+        );
+      })
+      .where("doctors.doctors_id", doctorsId) // Ensure filtering for the correct doctor
+      .select("doctors.*", "speciality.*", "favorites.favorites_id"); // Only select relevant fields
   }
 
   async deteleDoctors(doctorsId) {
@@ -135,12 +145,31 @@ class DoctorsModels {
   async getDoctorsBySpeciality(speciality_id) {
     try {
       const doctors = await knex("doctors")
-        .where("speciality_id", speciality_id)
-        .select("*");
+        .join("speciality", "doctors.speciality_id", "speciality.speciality_id")
+        .where("speciality.speciality_id", speciality_id)
+        .select("doctors.*", "speciality.*", "doctors.doctors_id");
 
       return doctors;
     } catch (error) {
       console.error("Error fetching doctors by speciality:", error);
+      throw error;
+    }
+  }
+  async getDoctorsBySpecialityAndName(speciality_id, name) {
+    try {
+      const doctors = await knex("doctors")
+        .join("speciality", "doctors.speciality_id", "speciality.speciality_id")
+        .where("speciality.speciality_id", speciality_id)
+        .andWhere(function () {
+          this.where("doctors.doctors_fname", "like", `%${name}%`)
+            .orWhere("doctors.doctors_mname", "like", `%${name}%`)
+            .orWhere("doctors.doctors_lname", "like", `%${name}%`);
+        })
+        .select("doctors.*", "speciality.*");
+
+      return doctors;
+    } catch (error) {
+      console.error("Error fetching doctors by speciality and name:", error);
       throw error;
     }
   }

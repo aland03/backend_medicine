@@ -1,14 +1,23 @@
 const express = require("express");
 const controller = require("../controller/favorite.controller");
+const auth_middleware = require("../middlewares/auth_middleware");
 
 const router = express.Router();
 
-router.post("/add", controller.addFavorite());
+router.post("/add/:doctors_id", auth_middleware, controller.addFavorite());
 
 router.get("/patient/:patient_id", controller.getFavoritesByPatient());
 
-router.get("/doctor/:doctor_id", controller.getFavoritesByDoctor());
+router.get(
+  "/doctor",
+  auth_middleware,
+  controller.getFavoritesByPatient()
+);
 
-router.delete("/remove/:favorites_id", controller.removeFavorite());
+router.delete(
+  "/remove/:favorites_id",
+  auth_middleware,
+  controller.removeFavorite()
+);
 
 module.exports = router;

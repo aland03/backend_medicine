@@ -8,7 +8,7 @@ app.post("/add-speciality", controller.addSpeciality());
 
 app.put("/update-speciality/:speciality_id", controller.updateSpeciality());
 
-app.get("/get-specialities", controller.getAllSpecialities());
+app.get("/get-specialities", AuthMiddleware, controller.getAllSpecialities());
 
 app.get("/get-speciality/:speciality_id", controller.getSpecialityById());
 

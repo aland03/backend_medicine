@@ -1,12 +1,11 @@
-const knex = require('../connection')
+const knex = require("../connection");
 
 class FavoritesModel {
-  addFavorite(favoriteData) {
+  addFavorite(patient_id, doctors_id) {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = await knex("favorites")
-          .insert(favoriteData)
-          .returning("*");
+        const data = await knex("favorites").insert({ doctors_id, patient_id });
+
         resolve(data);
       } catch (error) {
         console.error("Error adding favorite:", error);
@@ -71,6 +70,20 @@ class FavoritesModel {
         reject(error);
       }
     });
+  }
+
+  async getCheckedDoctorsByPatient(patient_id) {
+    return knex("doctors")
+      .join("speciality", "speciality.speciality_id", "doctors.speciality_id")
+      .join(
+        "favorites",
+        "favorites.doctors_id",
+        "=",
+        "doctors.doctors_id",
+        "favorites.patient_id",
+        patient_id
+      )
+      .select("doctors.*", "speciality.*", "favorites.favorites_id");
   }
 }
 

@@ -1,6 +1,7 @@
 const validation = require("../validation/doctors.validate");
 const models = require("../models/doctors.models");
 const auth = require("../auth/otp_code");
+const doctorsModels = require("../models/doctors.models");
 
 class DoctorsController {
   addDoctors_verify_otp_code() {
@@ -151,17 +152,27 @@ class DoctorsController {
     return (req, res) => {
       const { speciality_id } = req.params;
 
-      if (!speciality_id) {
-        return res.status(400).send("speciality_id is required");
-      }
-
-      doctorModel
+      doctorsModels
         .getDoctorsBySpeciality(speciality_id)
         .then((doctors) => {
           return res.status(200).json(doctors);
         })
         .catch((error) => {
-          return res.status(500).send("Error fetching doctors");
+          return res.status(500).send("نەتوانرا ئەنجام بدرێت");
+        });
+    };
+  }
+  getDoctorsByName() {
+    return (req, res) => {
+      const { speciality_id, name } = req.params;
+
+      doctorsModels
+        .getDoctorsBySpecialityAndName(speciality_id, name)
+        .then((doctors) => {
+          return res.status(200).json(doctors);
+        })
+        .catch((error) => {
+          return res.status(500).send("نەتوانرا ئەنجام بدرێت");
         });
     };
   }
@@ -169,8 +180,9 @@ class DoctorsController {
   getByIdDoctors = () => {
     return (req, res) => {
       const doctorsId = req.params.doctors_id;
+      const patient_id = req.user["user"];
       models
-        .getByIdDoctors(doctorsId)
+        .getByIdDoctors(doctorsId, patient_id)
         .then((data) => {
           res.send(data);
         })
